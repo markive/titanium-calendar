@@ -19,6 +19,7 @@
     NSString *title = args[@"title"];
     NSDate *value = args[@"value"];
     NSDate *maxDate = args[@"maxDate"];
+    NSDate *firstDate = args[@"firstDate"];
     UIColor *circleBackgroundColor = args[@"circleBackgroundColor"];
     UIColor *circleSelectedBackgroundColor = args[@"circleSelectedBackgroundColor"];
     UIColor *textColor = args[@"textColor"];
@@ -61,13 +62,14 @@
       _currentCalendar.selectedDate = value;
     }
 
-    _currentCalendar.lastDate = maxDate ?: [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:3 toDate:[NSDate date] options:0];;
+    _currentCalendar.lastDate = maxDate ?: [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:3 toDate:[NSDate date] options:0];
+    _currentCalendar.firstDate = firstDate ?: [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:1 toDate:[NSDate date] options:0];
 
     // Add cancel button
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
                                                                      style:UIBarButtonItemStylePlain
                                                                     target:self
-                                                                    action:@selector(hide:)];
+                                                                    action:@selector(close:)];
     
     _currentCalendar.navigationItem.rightBarButtonItem = cancelButton;
   }
@@ -95,6 +97,13 @@
 }
 
 - (void)hide:(id)unused
+{
+  [TiApp.app hideModalController:_currentCalendar.navigationController animated:YES];
+  
+  [self fireEvent:@"hide"];
+}
+
+- (void)close:(id)unused
 {
   [TiApp.app hideModalController:_currentCalendar.navigationController animated:YES];
   

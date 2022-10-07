@@ -21,6 +21,7 @@
     NSString *title = params[@"title"];
     NSDate *value = params[@"value"];
     NSDate *maxDate = params[@"maxDate"];
+    NSDate *firstDate = params[@"firstDate"];
     id circleBackgroundColor = params[@"circleBackgroundColor"];
     id circleSelectedBackgroundColor = params[@"circleSelectedBackgroundColor"];
     id textColor = params[@"textColor"];
@@ -28,7 +29,7 @@
     id todayTextColor = params[@"todayTextColor"];
     id todayCircleBackgroundColor = params[@"todayCircleBackgroundColor"];
 
-    calendar.firstDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear
+    calendar.firstDate = firstDate ?: [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear
                                                                   value:-3
                                                                  toDate:[NSDate date]
                                                                 options:0];
