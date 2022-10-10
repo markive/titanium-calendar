@@ -20,6 +20,7 @@
     NSDate *value = args[@"value"];
     NSDate *maxDate = args[@"maxDate"];
     NSDate *firstDate = args[@"firstDate"];
+    NSString *weekdayHeaderEnabled = args[@"weekdayHeaderEnabled"];
     UIColor *circleBackgroundColor = args[@"circleBackgroundColor"];
     UIColor *circleSelectedBackgroundColor = args[@"circleSelectedBackgroundColor"];
     UIColor *textColor = args[@"textColor"];
@@ -64,6 +65,10 @@
 
     _currentCalendar.lastDate = maxDate ?: [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:3 toDate:[NSDate date] options:0];
     _currentCalendar.firstDate = firstDate ?: [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:1 toDate:[NSDate date] options:0];
+
+
+    _currentCalendar.weekdayHeaderEnabled = true;
+    
 
     // Add cancel button
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
